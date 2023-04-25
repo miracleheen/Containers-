@@ -1,3 +1,3 @@
-*** Simple implementation of standard vector STL. ***
+***Simple implementation of standard vector STL.***
 
  
