@@ -115,7 +115,7 @@ namespace miv {
 			space = sz = args.sz;
 		}
 
-		Vector& operator=(const Vector& another) {
+		Vector& operator=(const Vector& another)& {
 			if (this == &another) {
 				return *this;
 			}
@@ -180,7 +180,7 @@ namespace miv {
 			std::size_t i = 0;
 			try {
 				for (; i < sz; ++i) {
-					alloc_traits::construct(alloc, new_elem + i, std::move(elem[i]));
+					alloc_traits::construct(alloc, new_elem + i, std::move_if_noexcept(elem[i]));
 				}
 			}
 			catch (...) {
