@@ -1,4 +1,5 @@
 #ifndef Vector
+#include <iostream>
 #include <string>
 
 //miv --> my implementation of the vector :P
