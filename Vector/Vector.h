@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <initializer_list>
@@ -99,16 +98,16 @@ namespace miv
 		{
 		}
 
-		reference operator*() const noexcept { return *ptr_; }
-		pointer operator->() const noexcept { return ptr_; }
-		reference operator[](difference_type n) const noexcept { return ptr_[n]; }
+		constexpr reference operator*() const noexcept { return *ptr_; }
+		constexpr pointer operator->() const noexcept { return ptr_; }
+		constexpr reference operator[](difference_type n) const noexcept { return ptr_[n]; }
 
-		VectorIterator &operator++() noexcept
+		constexpr VectorIterator &operator++() noexcept
 		{
 			++ptr_;
 			return *this;
 		}
-		VectorIterator operator++(int) noexcept
+		constexpr VectorIterator operator++(int) noexcept
 		{
 			VectorIterator tmp(*this);
 			++ptr_;
@@ -126,9 +125,9 @@ namespace miv
 			return tmp;
 		}
 
-		VectorIterator operator+(difference_type n) const noexcept { return VectorIterator(ptr_ + n); }
+		constexpr VectorIterator operator+(difference_type n) const noexcept { return VectorIterator(ptr_ + n); }
 		VectorIterator operator-(difference_type n) const noexcept { return VectorIterator(ptr_ - n); }
-		difference_type operator-(const VectorIterator &o) const noexcept { return ptr_ - o.ptr_; }
+		constexpr difference_type operator-(const VectorIterator &o) const noexcept { return ptr_ - o.ptr_; }
 
 		bool operator==(const VectorIterator &o) const noexcept { return ptr_ == o.ptr_; }
 		bool operator!=(const VectorIterator &o) const noexcept { return ptr_ != o.ptr_; }
@@ -227,9 +226,9 @@ namespace miv
 			return *this;
 		}
 
-		bool empty() const noexcept { return sz_ == 0; }
-		size_type size() const noexcept { return sz_; }
-		size_type capacity() const noexcept { return space_; }
+		constexpr bool empty() const noexcept { return sz_ == 0; }
+		constexpr size_type size() const noexcept { return sz_; }
+		constexpr size_type capacity() const noexcept { return space_; }
 
 		void reserve(size_type new_cap)
 		{
@@ -308,7 +307,7 @@ namespace miv
 			return elem_[sz_++];
 		}
 
-		void pop_back()
+		void pop_back() noexcept
 		{
 			if (sz_ > 0)
 				alloc_traits::destroy(alloc_, elem_ + --sz_);
@@ -445,8 +444,8 @@ namespace miv
 			std::swap(space_, other.space_);
 		}
 
-		reference operator[](size_type i) noexcept { return elem_[i]; }
-		const_reference operator[](size_type i) const noexcept { return elem_[i]; }
+		constexpr reference operator[](size_type i) noexcept { return elem_[i]; }
+		constexpr const_reference operator[](size_type i) const noexcept { return elem_[i]; }
 
 		reference at(size_type i)
 		{
@@ -466,8 +465,8 @@ namespace miv
 		reference back() noexcept { return elem_[sz_ - 1]; }
 		const_reference back() const noexcept { return elem_[sz_ - 1]; }
 
-		pointer data() noexcept { return elem_; }
-		const_pointer data() const noexcept { return elem_; }
+		constexpr pointer data() noexcept { return elem_; }
+		constexpr const_pointer data() const noexcept { return elem_; }
 
 		iterator begin() noexcept { return iterator(elem_); }
 		const_iterator begin() const noexcept { return const_iterator(elem_); }
